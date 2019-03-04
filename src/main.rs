@@ -23,6 +23,7 @@ struct Timer {
 }
 
 fn main() {
+    const FINALE: time::Duration = time::Duration::from_secs(1); // One second pause before the program finishes running
     let mut timer = Timer::from_args();
     let mut execution_time = String::new();
     let mut finish_time = String::new();
@@ -63,5 +64,5 @@ fn main() {
             println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to see documentation.");
         }
     }
-    thread::sleep(frequency);
+    thread::sleep(FINALE);
 }
