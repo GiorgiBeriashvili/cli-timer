@@ -2,6 +2,9 @@ use structopt::StructOpt;
 use chrono::prelude::*;
 use std::{thread, time};
 
+use log;
+use logger;
+
 #[derive(Debug, StructOpt)]
 #[structopt(name = "cli-timer", about = "Program used to set a timer.")]
 struct Timer {
@@ -19,10 +22,27 @@ struct Timer {
 
     /// Sets the time zone (Local, UTC)
     #[structopt(short = "t", long = "timezone", default_value = "local")]
-    timezone: String
+    timezone: String,
+
+    /// Turns the logger on or off
+    #[structopt(short = "l", long = "logger", default_value = "on")]
+    logger: String
+}
+
+fn logger_status(logger: &String) -> bool {
+    if logger == "on" {
+        true
+    }
+    else if logger == "off" {
+        false
+    }
+    else {
+        panic!("Could not determine the status of the logger.");
+    }
 }
 
 fn main() {
+    logger::init().unwrap();
     const FINALE: time::Duration = time::Duration::from_secs(1); // One second pause before the program finishes running
     let mut timer = Timer::from_args();
     let mut execution_time = String::new();
@@ -32,9 +52,17 @@ fn main() {
     if timer.status == "on" {
         if timer.timezone.to_lowercase() == "utc" {
             execution_time = Utc::now().to_string();
+
+            if logger_status(&timer.logger) == true {
+                log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.timezone.to_uppercase()));
+            }
         }
         else if timer.timezone.to_lowercase() == "local" {
             execution_time = Local::now().to_string();
+
+            if logger_status(&timer.logger) == true {
+                log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.timezone.to_uppercase()));
+            }
         };
 
         println!("Execution time: {}", execution_time);
@@ -59,9 +87,17 @@ fn main() {
             }
 
             println!("Finish time: +{} seconds ({})", now.elapsed().as_secs(), finish_time);
+
+            if logger_status(&timer.logger) == true {
+                log::info!("finish successful\n");
+            }
         }
         else if timer.duration == 0 {
             println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to see documentation.");
+
+            if logger_status(&timer.logger) == true {
+                log::warn!("duration unspecified\n");
+            }
         }
     }
     thread::sleep(FINALE);

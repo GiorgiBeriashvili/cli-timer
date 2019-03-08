@@ -4,6 +4,15 @@ version = "0.2.0"
 authors = ["Giorgi Beriashvili <giorgi.beriashvili@outlook.com>"]
 edition = "2018"
 
+[lib]
+name = "logger"
+path = "src/lib.rs"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
 [dependencies]
 structopt = "0.2.14"
 chrono = "0.4.6"
+log = "0.4.6"
