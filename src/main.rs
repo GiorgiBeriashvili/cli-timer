@@ -17,8 +17,8 @@ struct Timer {
     #[structopt(short = "f", long = "frequency", default_value = "1")]
     frequency: u64,
 
-    /// Sets the time zone (UTC, Local)
-    #[structopt(short = "t", long = "timezone", default_value = "utc")]
+    /// Sets the time zone (Local, UTC)
+    #[structopt(short = "t", long = "timezone", default_value = "local")]
     timezone: String
 }
 
