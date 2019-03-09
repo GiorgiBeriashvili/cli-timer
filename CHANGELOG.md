@@ -5,6 +5,10 @@ The format is influenced by [Keep a Changelog](https://keepachangelog.com/en/1.0
 Subsequently, the date entry follows **YYYY-MM-DD** format  in accordance with the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) standard. <br>
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Version 0.3.0] (2019-03-09)
+## Added
+* Make the project/repository public.
+
 # [Version 0.2.0] (2019-03-04)
 ## Added
 * Add src/lib.rs file to enable logging.
@@ -15,7 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Changed
 * Update main<span></span>.rs to add main and additional functionalities, mainly - working prototype, execution options and better formatting.
-* Update Cargo.lock and Cargo.toml to include required dependencies and to distinguish library and binary files.
+* Update Cargo.lock and Cargo.toml to include required dependencies, to enrich documentation further and to distinguish library and binary files.
 
 # Version 0.1.0 (2019-03-03)
 ## Added

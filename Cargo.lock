@@ -52,7 +52,7 @@ dependencies = [
 
 [[package]]
 name = "cli-timer"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "chrono 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
