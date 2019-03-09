@@ -10,7 +10,7 @@ repository = "https://github.com/0rganic/cli-timer"
 readme = "README.md"
 keywords = ["rust", "cli", "timer", "application", "begginer-friendly"]
 categories = ["command-line-utilities"]
-license = "APACHE-2.0 OR MIT"
+license = "Apache-2.0 OR MIT"
 
 [lib]
 name = "logger"
