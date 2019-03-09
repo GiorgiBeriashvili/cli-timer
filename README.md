@@ -6,6 +6,12 @@ An interactive command-line interface timer application written in Rust.
 
 <hr>
 
+## Changelog
+
+All notable changes to this project will be documented in the [CHANGELOG.md](CHANGELOG.md "Project's CHANGELOG.md file") file.
+
+<hr>
+
 ## License
 
 cli-timer is licensed under either of the following, at your option:
