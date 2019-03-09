@@ -6,7 +6,6 @@ use log;
 use logger;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "cli-timer", about = "Program used to set a timer.")]
 struct Timer {
     /// Turns the timer on or off
     #[structopt(short = "s", long = "status", default_value = "on")]
