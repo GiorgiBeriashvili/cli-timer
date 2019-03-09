@@ -1,6 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+Minor versions will be bundled with more important versions.
+
 The format is influenced by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). <br>
 Subsequently, the date entry follows **YYYY-MM-DD** format  in accordance with the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) standard. <br>
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
