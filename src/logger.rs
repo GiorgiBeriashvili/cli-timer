@@ -26,7 +26,7 @@ impl Log for Logger {
     fn flush(&self) {}
 }
 
-pub fn status(logger: &String) -> bool {
+pub fn status(logger: &str) -> bool {
     if logger == "on" {
         true
     }

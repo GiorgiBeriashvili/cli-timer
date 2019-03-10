@@ -45,21 +45,21 @@ fn main() {
         if timer.timezone.to_lowercase() == "utc" {
             execution_time = Utc::now().to_string();
 
-            if logger::status(&timer.logger) == true {
+            if logger::status(&timer.logger) {
                 log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
             }
         }
         else if timer.timezone.to_lowercase() == "local" {
             execution_time = Local::now().to_string();
 
-            if logger::status(&timer.logger) == true {
+            if logger::status(&timer.logger) {
                 log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
             }
         };
 
         println!("Execution time: {}", execution_time);
 
-        let timezone: Vec<&str> = execution_time.as_str().split(" ").collect();
+        let timezone: Vec<&str> = execution_time.as_str().split(' ').collect();
         let timezone = timezone[2];
 
         if timer.duration != 0 {
@@ -70,20 +70,20 @@ fn main() {
             if timezone == "UTC" {
                 finish_time = Utc::now().to_string();
             }
-            else if timezone.starts_with("+") || timezone.starts_with("-") {
+            else if timezone.starts_with('+') || timezone.starts_with('-') {
                 finish_time = Local::now().to_string();
             }
 
             println!("Finish time: +{} seconds ({})", now.elapsed().as_secs(), finish_time);
 
-            if logger::status(&timer.logger) == true {
+            if logger::status(&timer.logger) {
                 log::info!("finish successful\n");
             }
         }
         else if timer.duration == 0 {
             println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
 
-            if logger::status(&timer.logger) == true {
+            if logger::status(&timer.logger) {
                 log::warn!("duration unspecified\n");
             }
         }

@@ -19,7 +19,7 @@ pub fn display(indicator: String, mut duration: u64, frequency: time::Duration){
             duration -= 1;
         }
 
-        println!("");
+        println!();
     }
     else {
         println!("Unsupported indicator.");
