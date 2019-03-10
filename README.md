@@ -1,9 +1,9 @@
 # cli-timer
 
 [![LICENSE][License-Image]](#License "Project's LICENSE section")
-[![](https://tokei.rs/b1/github/0rganic/cli-timer)](https://github.com/0rganic/cli-timer "Project's total lines of code")
+[![Tokei.rs](https://tokei.rs/b1/github/0rganic/cli-timer)](https://github.com/0rganic/cli-timer "Project's total lines of code")
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
-[![](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer/0.3.31 "Package's docs.rs page")
+[![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer/0.3.31 "Package's docs.rs page")
 
 [License-Image]: https://img.shields.io/badge/License-MIT_or_Apache_2.0-blue.svg
 
