@@ -32,13 +32,10 @@ Building is guaranteed to work with Rust version 1.33.0 (2aa4c46cf 2019-02-28).
 git clone https://github.com/0rganic/cli-timer
 cd cli-timer
 
-# Compile the release version
-cargo build --release
+# Compile the debug version
+cargo build
 
-# Run the release version
-cargo run --release
-
-# To compile and run in the debug mode and to print the help information
+# Run in the debug mode and print the help information
 cargo run -- -h
 ```
 
