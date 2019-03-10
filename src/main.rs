@@ -21,7 +21,7 @@ struct Timer {
     indicator: String,
 
     /// Turns the logger on or off
-    #[structopt(short = "l", long = "logger", default_value = "on")]
+    #[structopt(short = "l", long = "logger", default_value = "off")]
     logger: String,
 
     /// Turns the timer on or off

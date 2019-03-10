@@ -13,6 +13,14 @@ An interactive command-line interface timer application written in Rust.
 
 <hr>
 
+## Usage
+
+Here is the basic demo of the application:
+
+![Demo](assets/demo.jpg)
+
+<hr>
+
 ## Building
 
 In order to build cli-timer, you need to have [Rust](https://www.rust-lang.org "Rust programming language's official website") programming language installed on your system. To install Rust (alongside Cargo, which comes bundled with Rust), it's best to follow the [official installation steps](https://www.rust-lang.org/tools/install "Official guide to install Rust").
