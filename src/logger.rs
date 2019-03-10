@@ -26,6 +26,18 @@ impl Log for Logger {
     fn flush(&self) {}
 }
 
+pub fn status(logger: &String) -> bool {
+    if logger == "on" {
+        true
+    }
+    else if logger == "off" {
+        false
+    }
+    else {
+        panic!("Could not determine the status of the logger.");
+    }
+}
+
 static LOGGER: Logger = Logger;
 
 pub fn init() -> Result<(), SetLoggerError> {
