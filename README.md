@@ -1,6 +1,6 @@
 # cli-timer
 
-[![LICENSE][License-Image]](#License "Project's LICENSE section")
+[![LICENSE][License-Image]](https://github.com/0rganic/cli-timer#License "Project's LICENSE section")
 [![Tokei.rs](https://tokei.rs/b1/github/0rganic/cli-timer)](https://github.com/0rganic/cli-timer "Project's total lines of code")
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
@@ -17,7 +17,7 @@ An interactive command-line interface timer application written in Rust.
 
 Here is the basic demo of the application:
 
-![Demo](assets/demo.jpg)
+![Demo](https://raw.githubusercontent.com/0rganic/cli-timer/master/assets/demo.jpg)
 
 <hr>
 
@@ -46,7 +46,7 @@ cargo run -- -h
 
 ## Changelog
 
-All notable changes to this project will be documented in the [CHANGELOG.md](CHANGELOG.md "Project's CHANGELOG.md file") file.
+All notable changes to this project will be documented in the [CHANGELOG.md](https://github.com/0rganic/cli-timer/blob/master/CHANGELOG.md "Project's CHANGELOG.md file") file.
 
 <hr>
 
@@ -54,5 +54,5 @@ All notable changes to this project will be documented in the [CHANGELOG.md](CHA
 
 cli-timer is licensed under either of the following, at your option:
 
-* Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE "Copy of the Apache license (version 2.0)"))
-* MIT License ([LICENSE-MIT](LICENSE-MIT "Copy of the MIT license"))
+* Apache License, Version 2.0 ([LICENSE-APACHE](https://github.com/0rganic/cli-timer/blob/master/LICENSE-APACHE "Copy of the Apache license (version 2.0)"))
+* MIT License ([LICENSE-MIT](https://github.com/0rganic/cli-timer/blob/master/LICENSE-MIT "Copy of the MIT license"))
