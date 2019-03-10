@@ -30,7 +30,7 @@ cargo build --release
 # Run the release version
 cargo run --release
 
-# To compile and run in the debug mode and to accept options 
+# To compile and run in the debug mode and to print the help information
 cargo run -- -h
 ```
 

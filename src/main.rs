@@ -81,7 +81,7 @@ fn main() {
             }
         }
         else if timer.duration == 0 {
-            println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to see documentation.");
+            println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
 
             if logger::status(&timer.logger) == true {
                 log::warn!("duration unspecified\n");
