@@ -11,7 +11,7 @@ pub fn display(indicator: String, mut duration: u64, frequency: time::Duration){
     }
     else if indicator.to_lowercase() == "bar" {
         let mut progress_bar = ProgressBar::new(duration);
-        progress_bar.format("[=>-]");
+        progress_bar.format("[=> ]");
 
         while duration != 0 {
             progress_bar.inc();
