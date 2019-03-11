@@ -4,7 +4,7 @@
 [![Tokei.rs](https://tokei.rs/b1/github/0rganic/cli-timer)](https://github.com/0rganic/cli-timer "Project's total lines of code")
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
-[![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/0rganic.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/0rganic.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master "Project's Azure Pipelines project")
 
 ## Description
 

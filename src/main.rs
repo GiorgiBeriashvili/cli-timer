@@ -9,27 +9,27 @@ mod logger;
 #[derive(Debug, StructOpt)]
 struct Timer {
     /// Sets the timer duration
-    #[structopt(short = "d", long = "duration", default_value = "0")]
+    #[structopt(name = "duration", short, long, default_value = "0")]
     duration: u64,
 
     /// Sets the frequency in seconds
-    #[structopt(short = "f", long = "frequency", default_value = "1")]
+    #[structopt(name = "frequency", short, long, default_value = "1")]
     frequency: u64,
 
     /// Sets the indicator of the timer's progress (Numerical, Bar)
-    #[structopt(short = "i", long = "indicator", default_value = "numerical")]
+    #[structopt(name = "indicator", short, long, default_value = "numerical")]
     indicator: String,
 
-    /// Turns the logger on or off
-    #[structopt(short = "l", long = "logger", default_value = "off")]
-    logger: String,
+    /// Turns the logger on
+    #[structopt(name = "logger", short, long)]
+    logger: bool,
 
     /// Turns the timer on or off
-    #[structopt(short = "s", long = "status", default_value = "on")]
+    #[structopt(name = "status", short, long, default_value = "on")]
     status: String,
 
     /// Sets the time zone (Local, UTC)
-    #[structopt(short = "t", long = "timezone", default_value = "local")]
+    #[structopt(name = "timezone", short, long, default_value = "local")]
     timezone: String,
 }
 
@@ -45,13 +45,13 @@ fn main() {
         if timer.timezone.to_lowercase() == "utc" {
             execution_time = Utc::now().to_string();
 
-            if logger::status(&timer.logger) {
+            if logger::status(timer.logger) {
                 log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
             }
         } else if timer.timezone.to_lowercase() == "local" {
             execution_time = Local::now().to_string();
 
-            if logger::status(&timer.logger) {
+            if logger::status(timer.logger) {
                 log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
             }
         };
@@ -78,13 +78,13 @@ fn main() {
                 finish_time
             );
 
-            if logger::status(&timer.logger) {
+            if logger::status(timer.logger) {
                 log::info!("finish successful\n");
             }
         } else if timer.duration == 0 {
             println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
 
-            if logger::status(&timer.logger) {
+            if logger::status(timer.logger) {
                 log::warn!("duration unspecified\n");
             }
         }

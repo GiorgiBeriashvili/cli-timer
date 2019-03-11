@@ -41,10 +41,10 @@ impl Log for Logger {
     fn flush(&self) {}
 }
 
-pub fn status(logger: &str) -> bool {
-    if logger == "on" {
+pub fn status(logger: bool) -> bool {
+    if logger {
         true
-    } else if logger == "off" {
+    } else if !logger {
         false
     } else {
         panic!("Could not determine the status of the logger.");
