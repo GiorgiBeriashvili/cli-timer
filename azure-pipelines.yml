@@ -26,7 +26,8 @@ steps:
     displayName: Install Rust on Windows
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
   - script: |
-      sudo apt-get install pkg-config
+      sudo apt-get install build-essentials
+      sudo apt-get update && time sudo apt-get dist-upgrade
     displayName: Install pkg-config on Linux
     condition: eq( variables['Agent.OS'], 'Linux' )
   - script: cargo build --all
