@@ -1,11 +1,10 @@
 # cli-timer
 
-[![LICENSE][License-Image]](https://github.com/0rganic/cli-timer#License "Project's LICENSE section")
+[![LICENSE](https://img.shields.io/badge/License-MIT_or_Apache_2.0-blue.svg)](https://github.com/0rganic/cli-timer#License "Project's LICENSE section")
 [![Tokei.rs](https://tokei.rs/b1/github/0rganic/cli-timer)](https://github.com/0rganic/cli-timer "Project's total lines of code")
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
-
-[License-Image]: https://img.shields.io/badge/License-MIT_or_Apache_2.0-blue.svg
+[![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/0rganic.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master)
 
 ## Description
 

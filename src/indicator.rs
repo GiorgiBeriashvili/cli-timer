@@ -1,15 +1,14 @@
-use std::{thread, time};
 use pbr::ProgressBar;
+use std::{thread, time};
 
-pub fn display(indicator: String, mut duration: u64, frequency: time::Duration){
+pub fn display(indicator: String, mut duration: u64, frequency: time::Duration) {
     if indicator.to_lowercase() == "numerical" {
         while duration != 0 {
             println!("{}", duration);
             thread::sleep(frequency);
             duration -= 1;
         }
-    }
-    else if indicator.to_lowercase() == "bar" {
+    } else if indicator.to_lowercase() == "bar" {
         let mut progress_bar = ProgressBar::new(duration);
         progress_bar.format("[=> ]");
 
@@ -20,8 +19,7 @@ pub fn display(indicator: String, mut duration: u64, frequency: time::Duration){
         }
 
         println!();
-    }
-    else {
+    } else {
         println!("Unsupported indicator.");
     }
 }
