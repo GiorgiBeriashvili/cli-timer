@@ -1,6 +1,6 @@
 [package]
 name = "cli-timer"
-version = "0.3.41"
+version = "0.3.42"
 authors = ["Giorgi Beriashvili <giorgi.beriashvili@outlook.com>"]
 edition = "2018"
 description = "Program used to set a timer."
