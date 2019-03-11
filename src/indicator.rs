@@ -1,7 +1,7 @@
 use pbr::ProgressBar;
 use std::{thread, time};
 
-pub fn display(indicator: String, mut duration: u64, frequency: time::Duration) {
+pub fn display(indicator: &str, mut duration: u64, frequency: time::Duration) {
     if indicator.to_lowercase() == "numerical" {
         while duration != 0 {
             println!("{}", duration);

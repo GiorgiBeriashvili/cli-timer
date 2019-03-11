@@ -1,6 +1,6 @@
 [package]
 name = "cli-timer"
-version = "0.3.43"
+version = "0.3.5"
 authors = ["Giorgi Beriashvili <giorgi.beriashvili@outlook.com>"]
 edition = "2018"
 description = "Program used to set a timer."
@@ -12,11 +12,13 @@ keywords = ["rust", "cli", "timer", "application", "beginner-friendly"]
 categories = ["command-line-utilities"]
 license = "Apache-2.0 OR MIT"
 
-[badges]
-azure-pipelines = { repository = "https://dev.azure.com/giorgiberiashvili/cli-timer", branch = "master" }
+# [badges]
+# azure-pipelines = { repository = "https://dev.azure.com/giorgiberiashvili/cli-timer", branch = "master" }
+# maintenance = { status = "actively-developed" }
 
 [dependencies]
-structopt = "0.2.15"
 chrono = "0.4.6"
 log = "0.4.6"
 pbr = "1.0.1"
+rodio = "0.8.1"
+structopt = "0.2.15"

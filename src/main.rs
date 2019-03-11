@@ -1,8 +1,12 @@
 use chrono::prelude::*;
 use log;
-use std::{thread, time};
+use std::{
+    thread,
+    time::{Duration, Instant},
+};
 use structopt::StructOpt;
 
+mod audio;
 mod indicator;
 mod logger;
 
@@ -24,9 +28,9 @@ struct Timer {
     #[structopt(name = "logger", short, long)]
     logger: bool,
 
-    /// Turns the timer on or off
-    #[structopt(name = "status", short, long, default_value = "on")]
-    status: String,
+    /// Turns the sound on
+    #[structopt(name = "sound", short, long)]
+    sound: bool,
 
     /// Sets the time zone (Local, UTC)
     #[structopt(name = "timezone", short, long, default_value = "local")]
@@ -35,58 +39,62 @@ struct Timer {
 
 fn main() {
     logger::init().unwrap();
-    const FINALE: time::Duration = time::Duration::from_secs(1);
+    const FINALE: Duration = Duration::from_secs(1);
     let timer = Timer::from_args();
     let mut execution_time = String::new();
     let mut finish_time = String::new();
-    let frequency = time::Duration::from_secs(timer.frequency);
+    let frequency = Duration::from_secs(timer.frequency);
+    let sound_file = include_bytes!("audio/sound.ogg");
+    let total_duration = timer.duration * timer.frequency;
 
-    if timer.status == "on" {
-        if timer.timezone.to_lowercase() == "utc" {
-            execution_time = Utc::now().to_string();
+    if timer.timezone.to_lowercase() == "utc" {
+        execution_time = Utc::now().to_string();
 
-            if logger::status(timer.logger) {
-                log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
-            }
-        } else if timer.timezone.to_lowercase() == "local" {
-            execution_time = Local::now().to_string();
+        if logger::status(timer.logger) {
+            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
+        }
+    } else if timer.timezone.to_lowercase() == "local" {
+        execution_time = Local::now().to_string();
 
-            if logger::status(timer.logger) {
-                log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[INDICATOR] = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.indicator.to_uppercase(), timer.timezone.to_uppercase()));
-            }
-        };
+        if logger::status(timer.logger) {
+            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]    = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
+        }
+    };
 
-        println!("Execution time: {}", execution_time);
+    println!("Execution time: {}", execution_time);
 
-        let timezone: Vec<&str> = execution_time.as_str().split(' ').collect();
-        let timezone = timezone[2];
+    let timezone: Vec<&str> = execution_time.as_str().split(' ').collect();
+    let timezone = timezone[2];
 
-        if timer.duration != 0 {
-            let now = time::Instant::now();
+    if timer.duration != 0 {
+        let now = Instant::now();
 
-            indicator::display(timer.indicator, timer.duration, frequency);
+        indicator::display(&timer.indicator, timer.duration, frequency);
 
-            if timezone == "UTC" {
-                finish_time = Utc::now().to_string();
-            } else if timezone.starts_with('+') || timezone.starts_with('-') {
-                finish_time = Local::now().to_string();
-            }
+        if timezone == "UTC" {
+            finish_time = Utc::now().to_string();
+        } else if timezone.starts_with('+') || timezone.starts_with('-') {
+            finish_time = Local::now().to_string();
+        }
 
-            println!(
-                "Finish time: +{} seconds ({})",
-                now.elapsed().as_secs(),
-                finish_time
-            );
+        println!(
+            "Finish time: +{} seconds ({})",
+            now.elapsed().as_secs(),
+            finish_time
+        );
 
-            if logger::status(timer.logger) {
-                log::info!("finish successful\n");
-            }
-        } else if timer.duration == 0 {
-            println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
+        if timer.sound {
+            audio::play_audio(sound_file);
+        }
 
-            if logger::status(timer.logger) {
-                log::warn!("duration unspecified\n");
-            }
+        if logger::status(timer.logger) {
+            log::info!("finish successful\n");
+        }
+    } else if timer.duration == 0 {
+        println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
+
+        if logger::status(timer.logger) {
+            log::warn!("duration unspecified\n");
         }
     }
     thread::sleep(FINALE);
