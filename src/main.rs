@@ -5,13 +5,19 @@ use std::{
     time::{Duration, Instant},
 };
 use structopt::StructOpt;
+use termcolor::Color;
 
 mod audio;
+mod color;
 mod indicator;
 mod logger;
 
 #[derive(Debug, StructOpt)]
 struct Timer {
+    /// Turns the colored output on
+    #[structopt(name = "color", short, long)]
+    colored: bool,
+
     /// Sets the timer duration
     #[structopt(name = "duration", short, long, default_value = "0")]
     duration: u64,
@@ -57,11 +63,15 @@ fn main() {
         execution_time = Local::now().to_string();
 
         if logger::status(timer.logger) {
-            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]    = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
+            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
         }
     };
 
-    println!("Execution time: {}", execution_time);
+    color::apply_color(
+        timer.colored,
+        format!("Execution time: {}", &execution_time),
+        Color::Cyan,
+    );
 
     let timezone: Vec<&str> = execution_time.as_str().split(' ').collect();
     let timezone = timezone[2];
@@ -69,7 +79,7 @@ fn main() {
     if timer.duration != 0 {
         let now = Instant::now();
 
-        indicator::display(&timer.indicator, timer.duration, frequency);
+        indicator::display(&timer.indicator, timer.colored, timer.duration, frequency);
 
         if timezone == "UTC" {
             finish_time = Utc::now().to_string();
@@ -77,10 +87,14 @@ fn main() {
             finish_time = Local::now().to_string();
         }
 
-        println!(
-            "Finish time: +{} seconds ({})",
-            now.elapsed().as_secs(),
-            finish_time
+        color::apply_color(
+            timer.colored,
+            format!(
+                "Finish time: +{} seconds ({})",
+                now.elapsed().as_secs(),
+                finish_time
+            ),
+            Color::Green,
         );
 
         if timer.sound {
@@ -91,7 +105,11 @@ fn main() {
             log::info!("finish successful\n");
         }
     } else if timer.duration == 0 {
-        println!("\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.");
+        color::apply_color(
+            timer.colored,
+            "\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.".to_string(),
+            Color::Magenta,
+        );
 
         if logger::status(timer.logger) {
             log::warn!("duration unspecified\n");

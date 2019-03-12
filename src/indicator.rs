@@ -1,7 +1,10 @@
 use pbr::ProgressBar;
 use std::{thread, time};
+use termcolor::Color;
 
-pub fn display(indicator: &str, mut duration: u64, frequency: time::Duration) {
+use crate::color;
+
+pub fn display(indicator: &str, colored: bool, mut duration: u64, frequency: time::Duration) {
     if indicator.to_lowercase() == "numerical" {
         while duration != 0 {
             println!("{}", duration);
@@ -20,6 +23,10 @@ pub fn display(indicator: &str, mut duration: u64, frequency: time::Duration) {
 
         println!();
     } else {
-        println!("Unsupported indicator.");
+        color::apply_color(
+            colored,
+            "\nUnsupported indicator.\n".to_string(),
+            Color::Red,
+        );
     }
 }
