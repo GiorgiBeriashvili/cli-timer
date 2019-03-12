@@ -1,12 +1,12 @@
 strategy:
   matrix:
-    windows-stable:
+    Windows-stable:
       imageName: 'vs2017-win2016'
       rustup_toolchain: stable
-    mac-stable:
+    macOS-stable:
       imageName: 'macos-10.13'
       rustup_toolchain: stable
-    linux-stable:
+    Linux-stable:
       imageName: 'ubuntu-16.04'
       rustup_toolchain: stable
 
@@ -26,6 +26,7 @@ steps:
     displayName: Install Rust on Windows
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
   - script: |
+      sudo apt-get update
       sudo apt-get install libsdl2-dev
     displayName: Check for alsa's dependencies on Linux
     condition: eq( variables['Agent.OS'], 'Linux' )
