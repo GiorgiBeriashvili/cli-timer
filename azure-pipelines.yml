@@ -1,12 +1,12 @@
 strategy:
   matrix:
-    Windows-stable:
+    windows-stable:
       imageName: 'vs2017-win2016'
       rustup_toolchain: stable
     macOS-stable:
       imageName: 'macos-10.13'
       rustup_toolchain: stable
-    Linux-stable:
+    linux-stable:
       imageName: 'ubuntu-16.04'
       rustup_toolchain: stable
 

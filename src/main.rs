@@ -1,4 +1,3 @@
-use chrono::prelude::*;
 use log;
 use std::{
     thread,
@@ -11,6 +10,7 @@ mod audio;
 mod color;
 mod indicator;
 mod logger;
+mod timezone;
 
 #[derive(Debug, StructOpt)]
 struct Timer {
@@ -47,25 +47,19 @@ fn main() {
     logger::init().unwrap();
     const FINALE: Duration = Duration::from_secs(1);
     let timer = Timer::from_args();
-    let mut execution_time = String::new();
-    let mut finish_time = String::new();
     let frequency = Duration::from_secs(timer.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
     let total_duration = timer.duration * timer.frequency;
 
-    if timer.timezone.to_lowercase() == "utc" {
-        execution_time = Utc::now().to_string();
-
-        if logger::status(timer.logger) {
-            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
-        }
-    } else if timer.timezone.to_lowercase() == "local" {
-        execution_time = Local::now().to_string();
-
-        if logger::status(timer.logger) {
-            log::info!("{}", format!("execution successful\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, total_duration, timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
-        }
-    };
+    let execution_time = timezone::execution(
+        &timer.timezone,
+        timer.logger,
+        timer.duration,
+        timer.frequency,
+        total_duration,
+        &timer.indicator,
+        timer.sound,
+    );
 
     color::apply_color(
         timer.colored,
@@ -73,19 +67,14 @@ fn main() {
         Color::Cyan,
     );
 
-    let timezone: Vec<&str> = execution_time.as_str().split(' ').collect();
-    let timezone = timezone[2];
+    let timezone_suffix = timezone::get_suffix(&execution_time);
 
     if timer.duration != 0 {
         let now = Instant::now();
 
         indicator::display(&timer.indicator, timer.colored, timer.duration, frequency);
 
-        if timezone == "UTC" {
-            finish_time = Utc::now().to_string();
-        } else if timezone.starts_with('+') || timezone.starts_with('-') {
-            finish_time = Local::now().to_string();
-        }
+        let finish_time = timezone::check_timezone(&timezone_suffix);
 
         color::apply_color(
             timer.colored,
