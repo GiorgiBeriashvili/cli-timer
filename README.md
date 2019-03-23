@@ -17,7 +17,7 @@ An interactive command-line interface timer application written in Rust.
 
 Here is the basic demo of the application:
 
-![Demo](https://raw.githubusercontent.com/GiorgiBeriashvili/cli-timer/master/assets/demo.jpg)
+![Demo](https://raw.githubusercontent.com/GiorgiBeriashvili/cli-timer/master/assets/demo.png)
 
 <hr>
 
