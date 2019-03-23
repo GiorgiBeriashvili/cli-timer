@@ -29,7 +29,7 @@ Building is guaranteed to work with Rust version 1.33.0 (2aa4c46cf 2019-02-28).
 
 ```sh
 # Clone the repository
-git clone https://github.com/0rganic/cli-timer
+git clone https://github.com/GiorgiBeriashvili/cli-timer
 cd cli-timer
 
 # Compile the debug version
