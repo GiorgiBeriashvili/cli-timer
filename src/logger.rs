@@ -1,10 +1,13 @@
-use chrono::Local;
+use chrono::{Local, Utc};
 use log::{Level, LevelFilter, Log, Metadata, Record, SetLoggerError};
 use std::{
+    env,
     fs::OpenOptions,
     io::{prelude::*, BufWriter},
-    path::Path,
+    path::{Path, PathBuf},
 };
+
+use crate::{arguments, configurer::Configuration};
 
 pub struct Logger;
 
@@ -49,6 +52,33 @@ pub fn status(logger: bool) -> bool {
     } else {
         panic!("Could not determine the status of the logger.");
     }
+}
+
+pub fn execution(configuration: &Configuration, timer: &arguments::Timer) -> String {
+    let mut execution_time = String::new();
+    let mut path = PathBuf::new();
+    path.push(&configuration.configuration_directory);
+    path.push(&configuration.directory_name);
+
+    let application_directory = path.clone();
+
+    env::set_current_dir(&application_directory).unwrap();
+
+    if timer.timezone.to_lowercase() == "utc" {
+        execution_time = Utc::now().to_string();
+
+        if self::status(timer.logger) {
+            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
+        }
+    } else if timer.timezone.to_lowercase() == "local" {
+        execution_time = Local::now().to_string();
+
+        if self::status(timer.logger) {
+            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.sound, timer.timezone.to_uppercase()));
+        }
+    };
+
+    execution_time
 }
 
 static LOGGER: Logger = Logger;

@@ -1,65 +1,38 @@
+use dirs;
 use log;
 use std::{
-    thread,
+    env, thread,
     time::{Duration, Instant},
 };
 use structopt::StructOpt;
 use termcolor::Color;
 
+mod arguments;
 mod audio;
 mod color;
+mod configurer;
 mod indicator;
 mod logger;
 mod timezone;
 
-#[derive(Debug, StructOpt)]
-struct Timer {
-    /// Turns the colored output on
-    #[structopt(name = "color", short, long)]
-    colored: bool,
-
-    /// Sets the timer duration
-    #[structopt(name = "duration", short, long, default_value = "0")]
-    duration: u64,
-
-    /// Sets the frequency in seconds
-    #[structopt(name = "frequency", short, long, default_value = "1")]
-    frequency: u64,
-
-    /// Sets the indicator of the timer's progress (Numerical, Bar)
-    #[structopt(name = "indicator", short, long, default_value = "numerical")]
-    indicator: String,
-
-    /// Turns the logger on
-    #[structopt(name = "logger", short, long)]
-    logger: bool,
-
-    /// Turns the sound on
-    #[structopt(name = "sound", short, long)]
-    sound: bool,
-
-    /// Sets the time zone (Local, UTC)
-    #[structopt(name = "timezone", short, long, default_value = "local")]
-    timezone: String,
-}
-
 fn main() {
     logger::init().unwrap();
+    let timer = arguments::Timer::from_args();
+
+    let configuration = configurer::Configuration {
+        current_directory: env::current_dir().unwrap(),
+        configuration_directory: dirs::config_dir().unwrap(),
+        directory_name: env!("CARGO_PKG_NAME"),
+        file_name: "configuration.toml",
+    };
+
+    configurer::init(&configuration, timer.logger);
+
     const FINALE: Duration = Duration::from_secs(1);
-    let timer = Timer::from_args();
     let frequency = Duration::from_secs(timer.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
-    let total_duration = timer.duration * timer.frequency;
 
-    let execution_time = timezone::execution(
-        &timer.timezone,
-        timer.logger,
-        timer.duration,
-        timer.frequency,
-        total_duration,
-        &timer.indicator,
-        timer.sound,
-    );
+    let execution_time = logger::execution(&configuration, &timer);
 
     color::apply_color(
         timer.colored,
@@ -91,7 +64,7 @@ fn main() {
         }
 
         if logger::status(timer.logger) {
-            log::info!("finish successful\n");
+            log::info!("Finished successfully.\n");
         }
     } else if timer.duration == 0 {
         color::apply_color(
@@ -101,8 +74,11 @@ fn main() {
         );
 
         if logger::status(timer.logger) {
-            log::warn!("duration unspecified\n");
+            log::warn!("Duration unspecified.\n");
         }
     }
+
+    env::set_current_dir(&configuration.current_directory).unwrap();
+
     thread::sleep(FINALE);
 }
