@@ -38,6 +38,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## Added
 * Initialize repository.
 
-[Version 0.3.x]: https://github.com/0rganic/cli-timer/compare/49d4a0e..a7af660
-[Version 0.3.x]: https://github.com/0rganic/cli-timer/compare/9d9193c..49d4a0e
-[Version 0.2.x]: https://github.com/0rganic/cli-timer/compare/4f20db0..9d9193c
+[Version 0.3.x]: https://github.com/GiorgiBeriashvili/cli-timer/compare/49d4a0e..a7af660
+[Version 0.3.x]: https://github.com/GiorgiBeriashvili/cli-timer/compare/9d9193c..49d4a0e
+[Version 0.2.x]: https://github.com/GiorgiBeriashvili/cli-timer/compare/4f20db0..9d9193c
