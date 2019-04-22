@@ -27,8 +27,16 @@ pub fn display(indicator: &str, colored: bool, mut duration: u64, frequency: tim
     } else {
         color::apply_color(
             colored,
-            "\nUnsupported indicator.\n".to_string(),
+            "\nUnsupported indicator. Running through default indicator instead.\n".to_string(),
             Color::Red,
         );
+
+        while duration != 0 {
+            println!("{}", duration);
+            thread::sleep(frequency);
+            duration -= 1;
+        }
+
+        println!();
     }
 }

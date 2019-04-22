@@ -6,8 +6,14 @@ use std::{
     io::{prelude::*, BufWriter},
     path::{Path, PathBuf},
 };
+use termcolor::Color;
 
-use crate::{configurer::ConfigurationDirectory, pattern_matcher::IsIn, timer};
+use crate::{
+    color,
+    configurer::{ConfigurationDirectory, DefaultConfiguration},
+    pattern_matcher::IsIn,
+    timer,
+};
 
 pub struct Logger;
 
@@ -54,17 +60,22 @@ pub fn status(logger: bool) -> bool {
     }
 }
 
-pub fn execution(configuration: &ConfigurationDirectory, timer: &mut timer::Timer) -> String {
+pub fn execution(
+    configuration_directory: &ConfigurationDirectory,
+    default_configuration: &DefaultConfiguration,
+    timer: &mut timer::Timer,
+) -> String {
     let mut execution_time = String::new();
     let mut path = PathBuf::new();
-    path.push(&configuration.configuration_directory);
-    path.push(&configuration.directory_name);
+    path.push(&configuration_directory.target_directory);
+    path.push(&configuration_directory.directory_name);
 
     let application_directory = path.clone();
 
     env::set_current_dir(&application_directory).unwrap();
 
     let unsupported_indicator = "unsupported indicator";
+    let unsupported_timezone = "unsupported timezone";
 
     if timer.indicator.is_in("numeric") {
         timer.indicator = "numeric".to_string();
@@ -74,21 +85,43 @@ pub fn execution(configuration: &ConfigurationDirectory, timer: &mut timer::Time
         timer.indicator = unsupported_indicator.to_string();
     };
 
+    if timer.timezone.is_in("utc") {
+        timer.timezone = "utc".to_string();
+    } else if timer.timezone.is_in("local") {
+        timer.timezone = "local".to_string();
+    } else {
+        timer.timezone = unsupported_timezone.to_string();
+    };
+
     if timer.timezone.to_lowercase().is_in("utc") {
         execution_time = Utc::now().to_string();
 
         if self::status(timer.logger && timer.indicator != unsupported_indicator) {
-            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, "local".to_uppercase(), env!("CARGO_PKG_VERSION")));
+            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, timer.timezone.to_uppercase(), env!("CARGO_PKG_VERSION")));
         } else {
-            log::error!("{}", format!("Execution failed.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, "local".to_uppercase(), env!("CARGO_PKG_VERSION")))
+            log::error!("{}", format!("Execution failed.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, timer.timezone.to_uppercase(), env!("CARGO_PKG_VERSION")))
         }
     } else if timer.timezone.to_lowercase().is_in("local") {
         execution_time = Local::now().to_string();
 
         if self::status(timer.logger && timer.indicator != unsupported_indicator) {
-            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, "local".to_uppercase(), env!("CARGO_PKG_VERSION")));
+            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, timer.timezone.to_uppercase(), env!("CARGO_PKG_VERSION")));
         } else {
-            log::error!("{}", format!("Execution failed.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, "local".to_uppercase(), env!("CARGO_PKG_VERSION")))
+            log::error!("{}", format!("Execution failed.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), timer.indicator.to_uppercase(), timer.colored, timer.sound, timer.timezone.to_uppercase(), env!("CARGO_PKG_VERSION")))
+        }
+    } else if timer.timezone.to_lowercase().is_in(unsupported_timezone) {
+        execution_time = Local::now().to_string();
+
+        color::apply_color(
+            timer.colored,
+            "\nUnsupported timezone. Running through default timezone instead.\n".to_string(),
+            Color::Red,
+        );
+
+        if self::status(timer.logger && timer.indicator != unsupported_indicator) {
+            log::info!("{}", format!("Executed successfully.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), format!("{} - [{}]", timer.indicator.to_uppercase(), default_configuration.indicator), timer.colored, timer.sound, format!("{}  - [{}]", timer.timezone.to_uppercase(), default_configuration.timezone), env!("CARGO_PKG_VERSION")));
+        } else {
+            log::error!("{}", format!("Execution failed.\n[DURATION]  = {} SECONDS\n[FREQUENCY] = {} SECONDS\n[TOTAL]     = {} SECONDS\n[INDICATOR] = {}\n[COLORED]   = {}\n[SOUND]     = {}\n[TIMEZONE]  = {}\n[VERSION]   = {}", timer.duration, timer.frequency, timer.total_duration(), format!("{} - [{}]", timer.indicator.to_uppercase(), default_configuration.indicator), timer.colored, timer.sound, format!("{}  - [{}]", timer.timezone.to_uppercase(), default_configuration.timezone), env!("CARGO_PKG_VERSION")))
         }
     };
 

@@ -19,21 +19,28 @@ mod timezone;
 fn main() {
     logger::init().unwrap();
     let mut timer = timer::Timer::from_args();
+    color_backtrace::install();
 
-    let configuration = configurer::ConfigurationDirectory {
-        current_directory: env::current_dir().unwrap(),
-        configuration_directory: dirs::config_dir().unwrap(),
-        directory_name: env!("CARGO_PKG_NAME"),
-        file_name: "configuration.toml",
+    let default_configuration = configurer::DefaultConfiguration {
+        indicator: timer.indicator.clone(),
+        timezone: timer.timezone.clone(),
     };
 
-    configurer::init(&configuration, timer.logger);
+    let configuration_directory = configurer::ConfigurationDirectory {
+        current_directory: env::current_dir().unwrap(),
+        target_directory: dirs::config_dir().unwrap(),
+        directory_name: env!("CARGO_PKG_NAME"),
+        file_name: "configuration_directory.toml",
+    };
+
+    configurer::init(&configuration_directory, timer.logger);
 
     const FINALE: Duration = Duration::from_secs(1);
     let frequency = Duration::from_secs(timer.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
 
-    let execution_time = logger::execution(&configuration, &mut timer);
+    let execution_time =
+        logger::execution(&configuration_directory, &default_configuration, &mut timer);
 
     color::apply_color(
         timer.colored,
@@ -79,7 +86,7 @@ fn main() {
         }
     }
 
-    env::set_current_dir(&configuration.current_directory).unwrap();
+    env::set_current_dir(&configuration_directory.current_directory).unwrap();
 
     thread::sleep(FINALE);
 }

@@ -10,23 +10,28 @@ fn write_default_configuration() {
     fs::write("configuration.toml", "Configuration.").unwrap();
 }
 
+pub struct DefaultConfiguration {
+    pub indicator: String,
+    pub timezone: String,
+}
+
 pub struct ConfigurationDirectory {
     pub current_directory: PathBuf,
-    pub configuration_directory: PathBuf,
+    pub target_directory: PathBuf,
     pub directory_name: &'static str,
     pub file_name: &'static str,
 }
 
 pub fn init(configuration: &ConfigurationDirectory, logger: bool) {
     let mut path = PathBuf::new();
-    path.push(&configuration.configuration_directory);
+    path.push(&configuration.target_directory);
     path.push(&configuration.directory_name);
 
     let application_directory = path.clone();
 
     path.push(&configuration.file_name);
 
-    env::set_current_dir(&configuration.configuration_directory).unwrap();
+    env::set_current_dir(&configuration.target_directory).unwrap();
 
     if fs::create_dir(&configuration.directory_name).is_err() {
         if logger::status(logger) {
@@ -35,7 +40,7 @@ pub fn init(configuration: &ConfigurationDirectory, logger: bool) {
             log::trace!("Application's configuration directory already exists. Moving on.");
         }
     } else {
-        env::set_current_dir(&configuration.configuration_directory).unwrap();
+        env::set_current_dir(&configuration.target_directory).unwrap();
 
         if logger::status(logger) {
             env::set_current_dir(&application_directory).unwrap();
