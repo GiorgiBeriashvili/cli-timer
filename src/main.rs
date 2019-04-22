@@ -7,20 +7,20 @@ use std::{
 use structopt::StructOpt;
 use termcolor::Color;
 
-mod arguments;
 mod audio;
 mod color;
 mod configurer;
 mod indicator;
 mod logger;
 mod pattern_matcher;
+mod timer;
 mod timezone;
 
 fn main() {
     logger::init().unwrap();
-    let mut timer = arguments::Timer::from_args();
+    let mut timer = timer::Timer::from_args();
 
-    let configuration = configurer::Configuration {
+    let configuration = configurer::ConfigurationDirectory {
         current_directory: env::current_dir().unwrap(),
         configuration_directory: dirs::config_dir().unwrap(),
         directory_name: env!("CARGO_PKG_NAME"),
