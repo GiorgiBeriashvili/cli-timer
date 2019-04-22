@@ -6,14 +6,18 @@ use std::{
 
 use crate::logger;
 
-pub struct Configuration {
+fn write_default_configuration() {
+    fs::write("configuration.toml", "Configuration.").unwrap();
+}
+
+pub struct ConfigurationDirectory {
     pub current_directory: PathBuf,
     pub configuration_directory: PathBuf,
     pub directory_name: &'static str,
     pub file_name: &'static str,
 }
 
-pub fn init(configuration: &Configuration, logger: bool) {
+pub fn init(configuration: &ConfigurationDirectory, logger: bool) {
     let mut path = PathBuf::new();
     path.push(&configuration.configuration_directory);
     path.push(&configuration.directory_name);
@@ -52,6 +56,8 @@ pub fn init(configuration: &Configuration, logger: bool) {
 
         if logger::status(logger) && file.is_ok() {
             log::info!("Successfully created application's configuration file.");
+
+            write_default_configuration();
         }
     }
 
