@@ -13,11 +13,12 @@ mod color;
 mod configurer;
 mod indicator;
 mod logger;
+mod pattern_matcher;
 mod timezone;
 
 fn main() {
     logger::init().unwrap();
-    let timer = arguments::Timer::from_args();
+    let mut timer = arguments::Timer::from_args();
 
     let configuration = configurer::Configuration {
         current_directory: env::current_dir().unwrap(),
@@ -32,7 +33,7 @@ fn main() {
     let frequency = Duration::from_secs(timer.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
 
-    let execution_time = logger::execution(&configuration, &timer);
+    let execution_time = logger::execution(&configuration, &mut timer);
 
     color::apply_color(
         timer.colored,
