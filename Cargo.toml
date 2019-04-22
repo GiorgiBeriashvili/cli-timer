@@ -19,6 +19,7 @@ license = "Apache-2.0 OR MIT"
 [dependencies]
 chrono = "0.4.6"
 dirs = "1.0.5"
+distance = "0.4"
 log = "0.4.6"
 pbr = "1.0.1"
 rodio = "0.8.1"

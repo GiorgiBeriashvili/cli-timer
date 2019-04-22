@@ -21,12 +21,12 @@ pub struct Timer {
     #[structopt(name = "frequency", short, long, default_value = "1")]
     pub frequency: u64,
 
-    /// Sets the indicator of the timer's progress (Numerical, Bar)
+    /// Sets the indicator of the timer's progress (Numeric, Graphic)
     ///
-    /// Numerical indicator is outputted line-by-line
+    /// Numeric indicator is outputted line-by-line
     ///
-    /// Bar indicator is constantly filled on a single line
-    #[structopt(name = "indicator", short, long, default_value = "numerical")]
+    /// Graphic indicator is constantly filled on a single line
+    #[structopt(name = "indicator", short, long, default_value = "numeric")]
     pub indicator: String,
 
     /// Turns the logger on
