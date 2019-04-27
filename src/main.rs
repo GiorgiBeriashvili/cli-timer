@@ -1,7 +1,7 @@
 use dirs;
 use log;
 use std::{
-    env, thread,
+    env,
     time::{Duration, Instant},
 };
 use structopt::StructOpt;
@@ -33,24 +33,24 @@ fn main() {
         file_name: "configuration_directory.toml",
     };
 
-    configurer::init(&configuration_directory, timer.logger);
-
     const FINALE: Duration = Duration::from_secs(1);
     let frequency = Duration::from_secs(timer.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
 
+    configurer::init(&configuration_directory, timer.logger);
+
     let execution_time =
         logger::execution(&configuration_directory, &default_configuration, &mut timer);
 
-    color::apply_color(
-        timer.colored,
-        format!("Execution time: {}", &execution_time),
-        Color::Cyan,
-    );
-
-    let timezone_suffix = timezone::get_suffix(&execution_time);
-
     if timer.duration != 0 {
+        color::apply_color(
+            timer.colored,
+            format!("Execution time: {}", &execution_time),
+            Color::Cyan,
+        );
+
+        let timezone_suffix = timezone::get_suffix(&execution_time);
+
         let now = Instant::now();
 
         indicator::display(&timer.indicator, timer.colored, timer.duration, frequency);
@@ -77,7 +77,7 @@ fn main() {
     } else if timer.duration == 0 {
         color::apply_color(
             timer.colored,
-            "\nDuration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.".to_string(),
+            "Duration unspecified. Enter \"cli-timer -d <duration>\" to specify the duration or \"cli-timer -h\" to print the help information.".to_string(),
             Color::Magenta,
         );
 
@@ -88,5 +88,5 @@ fn main() {
 
     env::set_current_dir(&configuration_directory.current_directory).unwrap();
 
-    thread::sleep(FINALE);
+    spin_sleep::sleep(FINALE);
 }

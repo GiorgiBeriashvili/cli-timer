@@ -1,6 +1,6 @@
 [package]
 name = "cli-timer"
-version = "0.3.79"
+version = "0.3.80"
 authors = ["Giorgi Beriashvili <giorgi.beriashvili@outlook.com>"]
 edition = "2018"
 description = "Program used to set a timer."
@@ -23,5 +23,6 @@ dirs = "1.0.5"
 log = "0.4.6"
 pbr = "1.0.1"
 rodio = "0.8.1"
+spin_sleep = "0.3.7"
 structopt = "0.2.15"
 termcolor = "1.0.4"

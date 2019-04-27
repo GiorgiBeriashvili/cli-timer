@@ -1,5 +1,5 @@
 use pbr::ProgressBar;
-use std::{thread, time};
+use std::time;
 use termcolor::Color;
 
 use crate::{color, pattern_matcher::IsIn};
@@ -8,7 +8,7 @@ pub fn display(indicator: &str, colored: bool, mut duration: u64, frequency: tim
     if indicator.to_lowercase().is_in("numeric") {
         while duration != 0 {
             println!("{}", duration);
-            thread::sleep(frequency);
+            spin_sleep::sleep(frequency);
             duration -= 1;
         }
     } else if indicator.to_lowercase().is_in("graphic") {
@@ -19,7 +19,7 @@ pub fn display(indicator: &str, colored: bool, mut duration: u64, frequency: tim
 
         while duration != 0 {
             progress_bar.inc();
-            thread::sleep(frequency);
+            spin_sleep::sleep(frequency);
             duration -= 1;
         }
 
@@ -33,7 +33,7 @@ pub fn display(indicator: &str, colored: bool, mut duration: u64, frequency: tim
 
         while duration != 0 {
             println!("{}", duration);
-            thread::sleep(frequency);
+            spin_sleep::sleep(frequency);
             duration -= 1;
         }
 
