@@ -1,3 +1,4 @@
+use serde_derive::Serialize;
 use std::{
     env,
     fs::{self, OpenOptions},
@@ -10,11 +11,13 @@ fn write_default_configuration() {
     fs::write("configuration.toml", "Configuration.").unwrap();
 }
 
+#[derive(Serialize)]
 pub struct DefaultConfiguration {
     pub indicator: String,
     pub timezone: String,
 }
 
+#[derive(Serialize)]
 pub struct ConfigurationDirectory {
     pub current_directory: PathBuf,
     pub target_directory: PathBuf,

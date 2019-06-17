@@ -1,7 +1,7 @@
 # cli-timer
 
 [![LICENSE](https://img.shields.io/badge/License-MIT_or_Apache_2.0-blue.svg)](https://github.com/GiorgiBeriashvili/cli-timer#License "Project's LICENSE section")
-[![Tokei.rs](https://tokei.rs/b1/github/GiorgiBeriashvili/cli-timer)](https://github.com/0rganic/cli-timer "Package's total lines of code")
+[![Tokei.rs](https://tokei.rs/b1/github/GiorgiBeriashvili/cli-timer)](https://github.com/GiorgiBeriashvili/cli-timer "Package's total lines of code")
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
 [![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/GiorgiBeriashvili.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master "Package's Azure Pipelines project")
@@ -25,7 +25,7 @@ Here is the basic demo of the application:
 
 In order to build cli-timer, you need to have [Rust](https://www.rust-lang.org "Rust programming language's official website") programming language installed on your system. To install Rust (alongside Cargo, which comes bundled with Rust), it's best to follow the [official installation steps](https://www.rust-lang.org/tools/install "Official guide to install Rust").
 
-Building is guaranteed to work with Rust version 1.34.0 (91856ed52 2019-04-10).
+Building is guaranteed to work with Rust version 1.35.0 (3c235d560 2019-05-20).
 
 ```sh
 # Clone the repository

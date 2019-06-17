@@ -26,6 +26,9 @@ fn main() {
         timezone: timer.timezone.clone(),
     };
 
+    let toml = toml::to_string(&default_configuration).unwrap();
+    println!("{}", toml);
+
     let configuration_directory = configurer::ConfigurationDirectory {
         current_directory: env::current_dir().unwrap(),
         target_directory: dirs::config_dir().unwrap(),
@@ -39,10 +42,10 @@ fn main() {
 
     configurer::init(&configuration_directory, timer.logger);
 
-    let execution_time =
-        logger::execution(&configuration_directory, &default_configuration, &mut timer);
-
     if timer.duration != 0 {
+        let execution_time =
+            logger::execution(&configuration_directory, &default_configuration, &mut timer);
+
         color::apply_color(
             timer.colored,
             format!("Execution time: {}", &execution_time),

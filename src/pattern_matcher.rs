@@ -1,3 +1,4 @@
+// IsIn trait reverses the argument positions of the "contains()" function
 pub trait IsIn {
     fn is_in(&self, string: &str) -> bool;
 }
