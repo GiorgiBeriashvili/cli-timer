@@ -22,12 +22,15 @@ fn main() {
     color_backtrace::install();
 
     let default_configuration = configurer::DefaultConfiguration {
-        indicator: timer.indicator.clone(),
-        timezone: timer.timezone.clone(),
+        colored: true,
+        duration: 10,
+        finale: 1,
+        frequency: 1,
+        indicator: String::from("numeric"),
+        logger: true,
+        sound: false,
+        timezone: String::from("local"),
     };
-
-    let toml = toml::to_string(&default_configuration).unwrap();
-    println!("{}", toml);
 
     let configuration_directory = configurer::ConfigurationDirectory {
         current_directory: env::current_dir().unwrap(),
@@ -36,8 +39,8 @@ fn main() {
         file_name: "configuration_directory.toml",
     };
 
-    const FINALE: Duration = Duration::from_secs(1);
-    let frequency = Duration::from_secs(timer.frequency);
+    let finale: Duration = Duration::from_secs(default_configuration.finale);
+    let frequency = Duration::from_secs(default_configuration.frequency);
     let sound_file = include_bytes!("audio/sound.ogg");
 
     configurer::init(&configuration_directory, timer.logger);
@@ -91,5 +94,5 @@ fn main() {
 
     env::set_current_dir(&configuration_directory.current_directory).unwrap();
 
-    spin_sleep::sleep(FINALE);
+    spin_sleep::sleep(finale);
 }

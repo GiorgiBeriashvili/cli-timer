@@ -13,7 +13,13 @@ fn write_default_configuration() {
 
 #[derive(Serialize)]
 pub struct DefaultConfiguration {
+    pub colored: bool,
+    pub duration: u64,
+    pub finale: u64,
+    pub frequency: u64,
     pub indicator: String,
+    pub logger: bool,
+    pub sound: bool,
     pub timezone: String,
 }
 
