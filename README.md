@@ -5,7 +5,7 @@
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
 [![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/GiorgiBeriashvili.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master "Package's Azure Pipelines project")
-[![Dependency Status](https://deps.rs/crate/cli-timer/0.3.62/status.svg)](https://deps.rs/crate/cli-timer/0.3.62 "Package's dependency status")
+[![Dependency Status](https://deps.rs/crate/cli-timer/0.3.62/status.svg)](https://deps.rs/crate/cli-timer/0.3.82 "Package's dependency status")
 
 ## Description
 
