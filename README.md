@@ -5,13 +5,13 @@
 [![Crates.io](https://img.shields.io/crates/v/cli-timer.svg)](https://crates.io/crates/cli-timer "Package's crates.io page")
 [![Docs.rs](https://docs.rs/cli-timer/badge.svg)](https://docs.rs/crate/cli-timer "Package's docs.rs page")
 [![Build Status](https://dev.azure.com/giorgiberiashvili/cli-timer/_apis/build/status/GiorgiBeriashvili.cli-timer?branchName=master)](https://dev.azure.com/giorgiberiashvili/cli-timer/_build/latest?definitionId=1&branchName=master "Package's Azure Pipelines project")
-[![Dependency Status](https://deps.rs/crate/cli-timer/0.3.83/status.svg)](https://deps.rs/crate/cli-timer/0.3.83 "Package's dependency status")
+[![Dependency Status](https://deps.rs/crate/cli-timer/0.3.84/status.svg)](https://deps.rs/crate/cli-timer/0.3.84 "Package's dependency status")
 
 ## Description
 
 An interactive command-line interface timer application written in Rust.
 
-<hr>
+---
 
 ## Usage
 
@@ -19,13 +19,13 @@ Here is the basic demo of the application:
 
 ![Demo](https://raw.githubusercontent.com/GiorgiBeriashvili/cli-timer/master/assets/demo.png)
 
-<hr>
+---
 
 ## Building
 
 In order to build cli-timer, you need to have [Rust](https://www.rust-lang.org "Rust programming language's official website") programming language installed on your system. To install Rust (alongside Cargo, which comes bundled with Rust), it's best to follow the [official installation steps](https://www.rust-lang.org/tools/install "Official guide to install Rust").
 
-Building is guaranteed to work with Rust version 1.35.0 (3c235d560 2019-05-20).
+Building is guaranteed to work with Rust version 1.36.0 (a53f9df32 2019-07-03).
 
 ```sh
 # Clone the repository
@@ -39,13 +39,13 @@ cargo build
 cargo run -- -h
 ```
 
-<hr>
+---
 
 ## Changelog
 
 All notable changes to this project will be documented in the [CHANGELOG.md](https://github.com/GiorgiBeriashvili/cli-timer/blob/master/CHANGELOG.md "Project's CHANGELOG.md file") file.
 
-<hr>
+---
 
 ## License
 

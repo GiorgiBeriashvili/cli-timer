@@ -8,7 +8,7 @@ use std::{
 use crate::logger;
 
 fn write_default_configuration() {
-    fs::write("configuration.toml", "Configuration.").unwrap();
+    fs::write("configuration.ron", "Configuration.").unwrap();
 }
 
 #[derive(Serialize)]

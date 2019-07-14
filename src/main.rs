@@ -36,7 +36,7 @@ fn main() {
         current_directory: env::current_dir().unwrap(),
         target_directory: dirs::config_dir().unwrap(),
         directory_name: env!("CARGO_PKG_NAME"),
-        file_name: "configuration_directory.toml",
+        file_name: "configuration_directory.ron",
     };
 
     let finale: Duration = Duration::from_secs(default_configuration.finale);
